@@ -1,20 +1,17 @@
-// In App.js in a new project
-
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AllBreeds from '../screens/AllBreeds';
+import DogDetails from '../screens/DetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
-function Navigator() {
+function MyStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="AllBreeds" component={AllBreeds} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="StackBreeds" component={AllBreeds} />
+      <Stack.Screen name="DogDetails" component={DogDetails} />
+    </Stack.Navigator>
   );
 }
 
-export default Navigator;
+export default MyStack;
