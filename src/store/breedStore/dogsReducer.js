@@ -1,9 +1,10 @@
-import * as dogActions from './actions';
+import * as dogActions from './types';
 
 const initialState = {
   dogs: [],
   loading: false,
   error: null,
+  favorites: [],
 };
 
 const dogsReducer = (state = initialState, action) => {
@@ -26,6 +27,18 @@ const dogsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    }
+
+    case dogActions.ADD_TO_FAVORITES: {
+      const breed = action.payload;
+      const isFav = [...state.favorites].includes(breed);
+      const prevFavs = [...state.favorites].filter(item => item !== breed);
+      const data = isFav ? prevFavs : [...state.favorites, breed];
+
+      return {
+        ...state,
+        favorites: data,
       };
     }
 
