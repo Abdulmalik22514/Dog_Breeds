@@ -1,43 +1,60 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {List} from 'react-native-paper';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToFavorites} from '../store/breedStore/types';
+import {COLORS} from '../constants/colors';
 
-export const BreedComponent = ({options, name, onFavorite, isFav}) => {
+export const BreedComponent = ({options, name, onPress}) => {
+  const {favorites} = useSelector(state => state.dogsReducer);
+
+  const dispatch = useDispatch();
+
+  const handlePress = breed => {
+    dispatch(addToFavorites(breed));
+  };
+
   const [expanded, setExpanded] = useState(false);
   return (
     <View>
       {options.length < 1 ? (
-        <View style={styles.itemCard}>
-          <Text>{name}</Text>
-          <TouchableOpacity onPress={onFavorite}>
+        <TouchableOpacity
+          style={styles.itemCard}
+          onPress={onPress}
+          activeOpacity={0.8}>
+          <Text style={{fontSize: 19}}>{name}</Text>
+          <TouchableOpacity onPress={() => handlePress(name)}>
             <MaterialIcons
-              name="favorite-outline"
-              size={24}
-              color={isFav ? 'red' : 'blue'}
+              name="heart"
+              size={22}
+              color={favorites.includes(name) ? 'red' : COLORS.grey}
             />
           </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       ) : (
         <List.Accordion
           style={styles.title}
           title={name}
-          titleStyle={{color: 'black'}}
+          titleStyle={{fontSize: 19}}
           expanded={expanded}
           id={`${name}-id`}
           onPress={() => setExpanded(!expanded)}>
           {options.map(item => {
             return (
               <List.Item
+                onPress={onPress}
                 key={`${item}-id`}
                 title={item}
                 style={styles.listItem}
                 right={props => (
-                  <TouchableOpacity {...props} onPress={onFavorite}>
+                  <TouchableOpacity
+                    {...props}
+                    onPress={() => handlePress(item)}>
                     <MaterialIcons
-                      name="favorite-outline"
-                      size={24}
-                      color={isFav ? 'red' : 'blue'}
+                      name="heart"
+                      size={22}
+                      color={favorites.includes(name) ? 'red' : COLORS.grey}
                     />
                   </TouchableOpacity>
                 )}
@@ -57,29 +74,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 50,
     width: '100%',
-    borderWidth: 0.5,
+    borderBottomWidth: 1,
     borderRadius: 5,
     marginVertical: 10,
     paddingHorizontal: 10,
   },
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: 15,
-  },
-  heading: {
-    textAlign: 'center',
-    fontSize: 25,
-    marginBottom: 20,
-  },
   title: {
-    elevation: 0.05,
-    shadowColor: '#000',
-    borderRadius: 5,
-    height: 60,
-    shadowOpacity: 0.5,
+    borderBottomWidth: 1,
   },
   listItem: {
-    backgroundColor: 'grey',
+    borderBottomWidth: 0.6,
+    marginHorizontal: 20,
+    paddingHorizontal: 0,
+    borderColor: 'grey',
   },
 });
