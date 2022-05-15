@@ -18,9 +18,6 @@ export const GetAllBreeds = () => {
           options: value,
         }),
       );
-
-      //   console.log(refinedData);
-
       dispatch(getDogsSuccess(refinedData));
     } catch (error) {
       dispatch(getDogsFailure(error));
