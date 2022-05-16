@@ -5,6 +5,8 @@ const initialState = {
   loading: false,
   error: null,
   favorites: [],
+  images: [],
+  imageError: null,
 };
 
 const dogsReducer = (state = initialState, action) => {
@@ -39,6 +41,20 @@ const dogsReducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: data,
+      };
+    }
+
+    case dogActions.GET_BREED_DETAILS: {
+      return {
+        ...state,
+        images: action.payload,
+      };
+    }
+
+    case dogActions.GET_BREED_DETAILS_FAILURE: {
+      return {
+        ...state,
+        imageError: action.payload,
       };
     }
 
