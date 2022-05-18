@@ -10,12 +10,10 @@ import {BreedComponent} from '../../components/BreedComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {GetAllBreeds} from '../../store/breedStore/actions';
 
-const AllBreeds = () => {
+const AllBreeds = ({navigation}) => {
   const {dogs, loading} = useSelector(state => state.dogsReducer);
 
   const dispatch = useDispatch();
-
-  console.log(loading);
 
   useEffect(() => {
     dispatch(GetAllBreeds());
@@ -24,7 +22,17 @@ const AllBreeds = () => {
   const _renderItem = ({item}) => {
     const {name, options} = item;
 
-    return <BreedComponent name={name} options={options} />;
+    return (
+      <BreedComponent
+        name={name}
+        options={options}
+        onPress={breed => {
+          navigation.navigate('DogDetails', {
+            breed,
+          });
+        }}
+      />
+    );
   };
 
   return (
@@ -40,17 +48,6 @@ const AllBreeds = () => {
 };
 
 const styles = StyleSheet.create({
-  itemCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 50,
-    width: '100%',
-    borderWidth: 0.5,
-    borderRadius: 5,
-    marginVertical: 10,
-    paddingHorizontal: 10,
-  },
   container: {
     flex: 1,
     paddingTop: 20,
@@ -60,16 +57,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 25,
     marginBottom: 20,
-  },
-  title: {
-    elevation: 0.05,
-    shadowColor: '#000',
-    borderRadius: 5,
-    height: 60,
-    shadowOpacity: 0.5,
-  },
-  listItem: {
-    backgroundColor: 'grey',
   },
 });
 
