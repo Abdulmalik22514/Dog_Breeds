@@ -5,13 +5,14 @@ import MaterialIcons from 'react-native-vector-icons/AntDesign';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToFavorites} from '../store/breedStore/types';
 import {COLORS} from '../constants/colors';
+import {capitalize} from '../utils/capitalize';
 
 export const BreedComponent = ({options, name, onPress}) => {
   const {favorites} = useSelector(state => state.dogsReducer);
 
   const dispatch = useDispatch();
 
-  const handlePress = breed => {
+  const handleFavorite = breed => {
     dispatch(addToFavorites(breed));
   };
 
@@ -21,10 +22,10 @@ export const BreedComponent = ({options, name, onPress}) => {
       {options.length < 1 ? (
         <TouchableOpacity
           style={styles.itemCard}
-          onPress={onPress}
+          onPress={() => onPress(name)}
           activeOpacity={0.8}>
-          <Text style={{fontSize: 19}}>{name}</Text>
-          <TouchableOpacity onPress={() => handlePress(name)}>
+          <Text style={{fontSize: 19}}>{capitalize(name)}</Text>
+          <TouchableOpacity onPress={() => handleFavorite(name)}>
             <MaterialIcons
               name="heart"
               size={22}
@@ -35,7 +36,7 @@ export const BreedComponent = ({options, name, onPress}) => {
       ) : (
         <List.Accordion
           style={styles.title}
-          title={name}
+          title={capitalize(name)}
           titleStyle={{fontSize: 19}}
           expanded={expanded}
           id={`${name}-id`}
@@ -43,14 +44,14 @@ export const BreedComponent = ({options, name, onPress}) => {
           {options.map(item => {
             return (
               <List.Item
-                onPress={onPress}
+                onPress={() => onPress(item)}
                 key={`${item}-id`}
-                title={item}
+                title={capitalize(item)}
                 style={styles.listItem}
                 right={props => (
                   <TouchableOpacity
                     {...props}
-                    onPress={() => handlePress(item)}>
+                    onPress={() => handleFavorite(item)}>
                     <MaterialIcons
                       name="heart"
                       size={22}
