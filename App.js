@@ -1,14 +1,15 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import Tabs from './src/navigations/TabNav';
-import {persistor, store} from './src/store/breedStore/store';
+import {persistor, store} from './src/store/store';
+import RootNavigation from './src/navigations/RootNav';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Tabs />
+        <RootNavigation />
       </PersistGate>
     </Provider>
   );
