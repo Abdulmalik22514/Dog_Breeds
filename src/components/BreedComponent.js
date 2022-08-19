@@ -25,7 +25,9 @@ export const BreedComponent = ({options, name, onPress}) => {
           onPress={() => onPress(name)}
           activeOpacity={0.8}>
           <Text style={{fontSize: 19}}>{capitalize(name)}</Text>
-          <TouchableOpacity onPress={() => handleFavorite(name)}>
+          <TouchableOpacity
+            onPress={() => handleFavorite(name)}
+            activeOpacity={0.8}>
             <MaterialIcons
               name="heart"
               size={22}
@@ -51,11 +53,12 @@ export const BreedComponent = ({options, name, onPress}) => {
                 right={props => (
                   <TouchableOpacity
                     {...props}
-                    onPress={() => handleFavorite(item)}>
+                    onPress={() => handleFavorite(item)}
+                    activeOpacity={0.8}>
                     <MaterialIcons
                       name="heart"
                       size={22}
-                      color={favorites.includes(name) ? 'red' : COLORS.grey}
+                      color={favorites.includes(item) ? 'red' : COLORS.grey}
                     />
                   </TouchableOpacity>
                 )}

@@ -5,6 +5,7 @@ import TabItem from '../components/TabItems';
 import Profile from '../screens/Profile';
 import AllBreeds from '../screens/AllBreeds';
 import DogDetails from '../screens/DetailsScreen';
+import {Platform} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +28,7 @@ const Tabs = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#E3E3E3',
-          height: 60,
+          height: Platform.OS === 'android' ? 60 : 80,
         },
         headerShown: false,
       }}>

@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   tabContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 10,
   },
   tabIconLabel: {
     fontSize: 20,

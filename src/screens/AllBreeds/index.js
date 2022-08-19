@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleSheet,
   ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {BreedComponent} from '../../components/BreedComponent';
@@ -37,11 +38,16 @@ const AllBreeds = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle={'dark-content'} />
       <Text style={styles.heading}>Choose your Dog Breed</Text>
       {loading ? (
         <ActivityIndicator size="large" color="red" />
       ) : (
-        <FlatList data={dogs} renderItem={_renderItem} />
+        <FlatList
+          data={dogs}
+          renderItem={_renderItem}
+          showsVerticalScrollIndicator={false}
+        />
       )}
     </View>
   );
