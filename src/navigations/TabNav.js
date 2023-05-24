@@ -13,7 +13,9 @@ const Stack = createNativeStackNavigator();
 
 export const MyStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName="StackBreeds"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="StackBreeds" component={AllBreeds} />
       <Stack.Screen name="DogDetails" component={DogDetails} />
     </Stack.Navigator>

@@ -10,6 +10,7 @@ import React, {useEffect} from 'react';
 import {BreedComponent} from '../../components/BreedComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {GetAllBreeds} from '../../store/breedStore/actions';
+import Container from '../../components/Container';
 
 const AllBreeds = ({navigation}) => {
   const {dogs, loading} = useSelector(state => state.dogsReducer);
@@ -37,19 +38,21 @@ const AllBreeds = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={'dark-content'} />
-      <Text style={styles.heading}>Choose your Dog Breed</Text>
-      {loading ? (
-        <ActivityIndicator size="large" color="red" />
-      ) : (
-        <FlatList
-          data={dogs}
-          renderItem={_renderItem}
-          showsVerticalScrollIndicator={false}
-        />
-      )}
-    </View>
+    <Container>
+      <View style={styles.container}>
+        <StatusBar barStyle={'dark-content'} />
+        <Text style={styles.heading}>Choose your Dog Breed</Text>
+        {loading ? (
+          <ActivityIndicator size="large" color="red" />
+        ) : (
+          <FlatList
+            data={dogs}
+            renderItem={_renderItem}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+      </View>
+    </Container>
   );
 };
 

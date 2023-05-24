@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {GetBreedDetails} from '../../store/breedStore/actions';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import {capitalize} from '../../utils/capitalize';
+import Container from '../../components/Container';
 
 const DogDetails = ({navigation, route}) => {
   const {breed} = route.params;
@@ -17,27 +18,29 @@ const DogDetails = ({navigation, route}) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.heading}>
-        <Ionicon
-          name="arrow-back"
-          size={24}
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={styles.breed}>{capitalize(breed)}</Text>
-        <View />
-      </View>
+    <Container>
+      <View style={styles.container}>
+        <View style={styles.heading}>
+          <Ionicon
+            name="arrow-back"
+            size={24}
+            onPress={() => navigation.goBack()}
+          />
+          <Text style={styles.breed}>{capitalize(breed)}</Text>
+          <View />
+        </View>
 
-      {loading ? (
-        <ActivityIndicator size="large" color="red" />
-      ) : (
-        <Image
-          source={{uri: image}}
-          style={{width: '100%', height: 400}}
-          resizeMode="cover"
-        />
-      )}
-    </View>
+        {loading ? (
+          <ActivityIndicator size="large" color="red" />
+        ) : (
+          <Image
+            source={{uri: image}}
+            style={{width: '100%', height: 400}}
+            resizeMode="cover"
+          />
+        )}
+      </View>
+    </Container>
   );
 };
 
